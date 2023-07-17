@@ -79,6 +79,9 @@ public class MemberController {
 	public String logout(SessionStatus status) {
 //		if(session!=null)
 //		session.invalidate();
+		//강제에러발생
+//		if(1==1)
+//		throw new IllegalArgumentException("잘못된 접근입니다!");
 		if(!status.isComplete())
 			status.setComplete();
 		return "redirect:/";

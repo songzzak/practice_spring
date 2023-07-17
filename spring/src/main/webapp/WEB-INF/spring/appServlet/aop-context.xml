@@ -6,7 +6,7 @@
       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
       
       <!-- xml방식으로 aop적용하기 -->
-      <bean id="loggerAspect" class="com.bs.spring.common.aop.LoggerAspect"/>
+    <!--   <bean id="loggerAspect" class="com.bs.spring.common.aop.LoggerAspect"/>
       
       <aop:config >
       	<aop:aspect ref="loggerAspect">
@@ -14,8 +14,10 @@
       		<aop:before method="loggerBefore" pointcut-ref="logPointcut"/>
       		<aop:after method="loggerAfter" pointcut-ref="logPointcut"/>
       	</aop:aspect>
-      </aop:config>
+      </aop:config> -->
       
+      <!-- annotation 적용 자동 인식태그-->
+      <aop:aspectj-autoproxy/>
       
       
       
