@@ -80,7 +80,7 @@
 			<exclude-mapping path="/demo/demo.do"/><!-- 예외매핑처리 -->
 			<beans:bean class="com.bs.spring.common.interceptor.LoggerInterceptor"/>
 		</interceptor>
-		<interceptor>
+		<!-- <interceptor>
 			<mapping path="/demo/selectDemoAll.do"/>
 			<mapping path="/memo/selectMemoAll.do"/>
 			<beans:ref bean="loginCheck"/>
@@ -88,7 +88,7 @@
 		<interceptor>
 			<mapping path="/memo/selectMemoAll.do"/>
 			<beans:ref bean="AdminloginCheck"/>
-		</interceptor>
+		</interceptor> -->
 	</interceptors>
 		
 		<beans:bean id="loginCheck" class="com.bs.spring.common.interceptor.LoginCheckInterceptor"/>

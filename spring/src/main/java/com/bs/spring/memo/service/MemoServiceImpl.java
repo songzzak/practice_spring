@@ -12,11 +12,17 @@ import com.bs.spring.memo.model.dto.Memo;
 @Service
 public class MemoServiceImpl implements MemoService {
 
-	@Autowired
+	//@Autowired
 	private MemoDao dao;
 	
-	@Autowired
+	//@Autowired
 	private SqlSessionTemplate session;
+	
+	@Autowired
+	public MemoServiceImpl(MemoDao dao, SqlSessionTemplate session) {
+		this.dao=dao;
+		this.session=session;
+	}
 	
 	@Override
 	public List<Memo> selectMemoAll() {
