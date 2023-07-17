@@ -44,7 +44,7 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="">HOME</a>
+							<a class="nav-link" href="${path }/spring">HOME</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="${path }/demo/demo.do">ControllerTest</a>
@@ -54,6 +54,9 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="${path }/memo/selectMemoAll.do">MEMO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${path }/">Board</a>
 						</li>
 					</ul>
 					<c:if test="${loginMember == null}">

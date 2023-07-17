@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,13 +33,18 @@ public class MemberController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/enrollMember.do")
-	public String insertMember() {
+	public String insertMember(@ModelAttribute("member") Member m) {
 		return "member/enrollMember";
 	}
 	
 	@RequestMapping(value = "/insertMember.do" , method = RequestMethod.POST)
-	public String insertEndMember(Member member, Model model) {
+	public String insertEndMember(@Validated Member member, BindingResult isResult ,Model model) {
 		//System.out.println(member);
+		
+		if(isResult.hasErrors()) {
+			
+			return "member/enrollMember";
+		}
 		
 		//회원가입 시 패스워드 암호화 처리
 		String oriPassword=member.getPassword();//입력받은 패스워드
