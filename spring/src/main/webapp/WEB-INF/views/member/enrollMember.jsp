@@ -46,6 +46,8 @@
 			
 			<springform:form modelAttribute="member" name="memberEnrollFrm" action="${path }/member/insertMember.do" method="post">
 				<springform:input path="userId" type="text" class="form-control" placeholder="아이디 (4글자이상)" name="userId" id="userId_"/>
+				<button class="btn btn-outline-danger" type="button" onclick="checkId();">중복확인</button>
+				<span id="result"></span>
 				<springform:errors path="userId" cssClass="error" />
 				<springform:input  path="password" type="password" class="form-control" placeholder="비밀번호" name="password" id="password_" />
 				<springform:errors path="password" cssClass="error" />
@@ -78,5 +80,22 @@
 				<input type="reset" class="btn btn-outline-success" value="취소">
 			</springform:form>
 		</div>
+	<script type="text/javascript">
+		const checkId=()=>{
+			const userId=$("#userId_").val();
+			if(userId.trim().length>=4){
+				$.get('${path}/ajax/checkId.do',{"userId":userId},data=>{
+					if(data.length!=0){
+						$("#result").html("<h6>이미 사용중인 아이디 입니다.</h6>").css("color","red");
+					}else{
+						$("#result").html("<h6>사용가능한 아이디 입니다.</h6>").css("color","green");
+					}
+				});
+			}else{
+				alert("아이디는 4글자 이상 입력해주세요.");
+			}
+		}
+	
+	</script>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -11,8 +11,7 @@
 <select id="selectMemberById" parameterType="map" resultMap="memberMap">
 	SELECT * FROM MEMBER WHERE USERID = #{userId}
 </select>
-
-
-<select id="selectMemberAll">
+<select id="selectMemberAll" resultMap="memberMap">
+SELECT * FROM MEMBER
 </select>
 </mapper>

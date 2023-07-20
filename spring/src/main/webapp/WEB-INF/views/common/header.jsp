@@ -72,6 +72,9 @@
 							${loginMember.userName }
 						</a>님 환영합니다!
 					</span>
+					<button class="btn btn-outline-primary my2 my-sm-0" onclick="chattingOpen();">
+						채팅
+					</button>
 					<button class="btn btn-outline-dark my2 my-sm-0" onclick="location.replace('${path}/member/logout.do')">
 						로그아웃
 					</button>
@@ -104,3 +107,15 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			const chattingOpen=()=>{
+				open("${path}/chattingpage","_blank","width=400,height=500");
+				
+				
+				
+			}
+		
+		
+		
+		
+		</script>

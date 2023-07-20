@@ -8,7 +8,7 @@
 </jsp:include>
 <section id="board-container" class="container">
         <p>총 ${totalContents }건의 게시물이 있습니다.</p>
-        <button class="btn btn-outline-success" onclick="location.assign('${path}/board/insertBoard.do')">글 쓰기</button>
+        <button class="btn btn-outline-success" onclick="location.assign('${path}/board/boardForm.do')">글 쓰기</button>
         <table id="tbl-board" class="table table-striped table-hover">
             <tr>
                 <th>번호</th>
@@ -27,9 +27,15 @@
 		                ${b.boardTitle }
 		                	</a>
 		                </td>
-		                <td>${b.boardWriter }</td>
+		                <td>${b.boardWriter.userId }</td>
 		                <td>${b.boardDate }</td>
-		                <td></td>
+		               
+		                <td>
+		                	<c:if test="${not empty b.file && b.file.get(0).attachmentNo!=0}">
+		                		<img src="${path }/resources/images/file.png" alt="첨부파일">
+		                		<span>${b.file.size() }</span>
+		                	</c:if>
+		                </td>
 		                <td>${b.boardReadCount }</td>
 		            </tr>
             	</c:forEach>

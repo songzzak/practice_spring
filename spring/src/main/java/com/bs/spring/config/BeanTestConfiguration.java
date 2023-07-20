@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.bs.spring.beantest.Animal;
 import com.bs.spring.beantest.Department;
 import com.bs.spring.beantest.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //클래스 방식으로 bean등록해서 사용하기
 //pojo클래스를 configuration으로 사용할 수 있다 -> @Configuration어노테이션이용
@@ -64,4 +65,8 @@ public class BeanTestConfiguration {
 	/*
 	 * @Bean public Gson gson() { return new Gson(); }
 	 */
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
+	}
 }

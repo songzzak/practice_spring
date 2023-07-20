@@ -6,7 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-		
+
 		<!-- DB연결하는 객체 bean으로 등록하기 -->
 		<!-- 
 				1. DatabSource클래스 -> DB에 접속하는 정보를 제공해주는 bean -> BasicDataSource클래스
@@ -40,4 +40,33 @@
 		<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 			<constructor-arg index="0" ref="sessionFactory"/>
 		</bean>
+		
+		<!-- 트렌젝션 설정하기 -->
+		<!-- DataSourceTransactionManager클래스를 bean으로 등록
+			1. 어노테이션 방식으로 설정하기
+			<tx:annotation-driven>태그 설정
+		 -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="proxyDataSource"/>
+		</bean>
+		<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+		
+		<!-- 
+			2. XML방식으로 설정하기
+		-->
+		<tx:advice id="txadvice" transaction-manager="transactionManager">
+			<tx:attributes >
+				<tx:method name="insert*" />
+			</tx:attributes>
+		</tx:advice>
+		<aop:config>
+			<aop:pointcut expression="within(com.bs.spring..*ServiceImpl)" id="transop"/>
+			<aop:advisor advice-ref="txadvice" pointcut-ref="transop"/>
+		</aop:config>
+		
+		
+		
+		
+		
+		
 </beans>
