@@ -49,7 +49,7 @@ public class BeanTestConfiguration {
 	
 	@Bean
 	public Department sal() {
-		return Department.builder().deptCode(2L).deptTitle("영업부").deptLocation("서울").build();
+		return Department.builder().deptCode(2L).deptTitle("영업부").build();
 	}
 	
 	@Bean
