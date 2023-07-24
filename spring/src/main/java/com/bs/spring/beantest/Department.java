@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class Department {
 	private Long deptCode;
 	private String deptTitle;
-	private String deptLocation;
 }

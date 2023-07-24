@@ -15,6 +15,7 @@ public class Employee {
 	private String address;
 	private int salary;
 	private Department dept;
+	private String hobby;
 	
 	public Employee(Department dept) {
 		this.dept=dept;
