@@ -28,6 +28,11 @@
 </head>
 <body>
 	<div id="container">
+	<p>
+	시큐리티에  저장된로그인 정보 확안하기
+	<hr>
+	${sessionScope.SPRING_SECURITY_CONTEXT.authentication.proncipal }
+	</p>
 		<header>
 			<div id="header-container">
 				<h2>${param.title }</h2>
@@ -63,7 +68,7 @@
 					<button class="btn btn-outline-success my-2 my-sm-0"
 						data-toggle="modal" data-target="#loginModal">로그인</button>
 					&nbsp;
-					<button class="btn btn-outline-primary my-2 my-sm-0" onclick="location.assign('${path}/member/enrollMember.do')">
+					<button class="btn btn-outline-primary my-2 my-sm-0" onclick="location.assign('${path}//loginEnd')">
 						회원가입</button>
 					</c:if>
 					<c:if test="${loginMember != null}">

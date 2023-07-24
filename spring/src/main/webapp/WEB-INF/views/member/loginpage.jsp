@@ -7,11 +7,10 @@
    <jsp:param name="title" value=""/>
 </jsp:include>
 <section>
-<p>AuthenticationException</p>
-<script type="text/javascript">
-	 setTimeout(()=>{
-		 location.replace("${path}/")
-	 })
-</script>
+	<form action="${path }/loginEnd" method="post">
+		<input type="text" name="userId">
+		<input type="password" name="password">
+		<input type="submit" value="로그인">
+	</form>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -6,6 +6,7 @@
    xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.8.xsd
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+     <!--  <import resource="root-context.xml"/> -->
       
       <!-- 암호화 처리하는 클래스를 bean으로 등록하기 -->
       <bean id="bcryptPassword" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
@@ -24,7 +25,12 @@
 	      	authentication-success-forword-url : 인증 성공 후 연결주소
 	      	login-processing-url : 인증처리 요청주소
       	-->
-      	<security:form-login/>
+      	<security:form-login 
+      	username-parameter="userId" password-parameter="password"
+      	login-page="/loginpage" login-processing-url="/loginEnd"
+      	default-target-url="/"
+      	authentication-failure-forward-url="/error.do"
+      	authentication-success-forward-url="/successLogin.do"/>
       	<security:csrf disabled="true"/>
       	<!--
       	 인증처리할 서비스 등록
@@ -36,17 +42,44 @@
       	 	access : 이용권한에 대한 설정
 
       	 -->
-      	<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+      	 <security:intercept-url pattern="/loginpage" access="permitAll()"/>
+      	 <security:intercept-url pattern="/loggoutsuccess" access="permitAll()"/>
+      	 <security:intercept-url pattern="/resources/**" access="permitAll()"/>
+      	  <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+      	<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+      	
+      	<!-- 
+      		loggout에 대한 설정
+      		security:loggout 태그 이용
+      			loggout-url : loggout을 처리하는 url
+      			loggout-success-url : loggout이후 처리할 서비스가 있으면 설정하는 url
+      	 -->
+      	<security:logout logout-url="/seculoggout.do"/>
+      	 <!-- logout-success-url="/loggoutsuccess"/> -->
+      	 
+      	 
+      	 <!-- 권한부족으로 접근할 경우 커스텀 에러페이지로 보내기 -->
+      	 <security:access-denied-handler error-page="/WEB-INF/views/common/error/AuthenticationException.jsp"/>
+      	 
       </security:http>
       <security:authentication-manager>
-      	<security:authentication-provider>
-      		<security:user-service>
+      	<security:authentication-provider user-service-ref="loginService">
+      		
+      	
+      	
+      		<!-- <security:user-service>
       			<security:user name="admin" authorities="ROLE_ADMIN"
       			password="$2a$10$GtmBI/fJlCKmBzVsklJlRuSOb.6ywaycc1d8Plx9AgSoyUfYzdVGe"/>
       			<security:user name="user02" authorities="ROLE_USER"
       			password="$2a$10$GtmBI/fJlCKmBzVsklJlRuSOb.6ywaycc1d8Plx9AgSoyUfYzdVGe"/>
       		</security:user-service>
-      		<security:password-encoder ref="bcryptPassword"/>
+      		<security:password-encoder ref="bcryptPassword"/> -->
+			<security:password-encoder ref="bcryptPassword"/>
       	</security:authentication-provider>
       </security:authentication-manager>
+      <bean id="dao" class="com.bs.spring.member.dao.MemberDaoImpl" />
+      <bean id="loginService" class="com.bs.spring.security.controller.SecurityLoginService">
+      	<constructor-arg index="0" ref="dao"/>
+      	<constructor-arg index="1" ref="sessionTemplate"/>
+      </bean>
  </beans>
